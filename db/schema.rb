@@ -10,10 +10,46 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_29_190910) do
+ActiveRecord::Schema.define(version: 2018_10_31_223542) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "companies", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "employees", force: :cascade do |t|
+    t.string "type"
+    t.bigint "company_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_employees_on_company_id"
+    t.index ["user_id"], name: "index_employees_on_user_id"
+  end
+
+  create_table "pay_periods", force: :cascade do |t|
+    t.date "start_date"
+    t.date "end_date"
+    t.bigint "company_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_pay_periods_on_company_id"
+  end
+
+  create_table "punches", force: :cascade do |t|
+    t.string "punch_type"
+    t.datetime "punched_at"
+    t.bigint "employee_id"
+    t.bigint "pay_period_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["employee_id"], name: "index_punches_on_employee_id"
+    t.index ["pay_period_id"], name: "index_punches_on_pay_period_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "first_name"

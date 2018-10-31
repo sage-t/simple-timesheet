@@ -1,0 +1,2 @@
+class Owner < Manager
+end
