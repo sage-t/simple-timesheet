@@ -5,4 +5,8 @@ class User < ApplicationRecord
 
   has_many :employees, dependent: :destroy
   has_many :companies, through: :employees
+
+  def name
+    return "#{self.first_name} #{self.last_name}"
+  end
 end

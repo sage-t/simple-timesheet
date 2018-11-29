@@ -12,8 +12,22 @@
   <% end %>
 
   <div class="field form-group">
-    <%= form.label :name %>
+    <%= form.label :company_name %>
     <%= form.text_field :name, class: 'form-control' %>
+  </div>
+
+  </br>
+
+  <div class="field form-group">
+    <%= form.label :pay_period_start %>
+    <%= form.date_select :start_date, class: 'form-control' %>
+  </div>
+
+  </br>
+
+  <div class="field form-group">
+    <%= form.label :pay_period_end %>
+    <%= form.date_select :end_date, class: 'form-control' %>
   </div>
 
   </br>

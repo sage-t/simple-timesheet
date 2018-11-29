@@ -1,0 +1,5 @@
+<%= form_tag("/companies/employ", method: "post") do %>
+  <%= email_field(:user, :address, placeholder: "employee email") %>
+  <%= hidden_field_tag :company, @company.id %>
+  <%= submit_tag("Add employee") %>
+<% end %>

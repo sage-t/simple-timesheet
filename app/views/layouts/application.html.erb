@@ -25,17 +25,18 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <a class="dropdown-item" href="/companies/new">Create Company</a>
+                  <%= button_to "Delete user", current_user, :method=>:delete, class: "destroy dropdown-item" %>
                 </div>
               </div>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item <%= 'active' if @page_tab == "home" || @page_tab == nil %>">
               <a class="nav-link" href="/">Home</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item <%= 'active' if @page_tab == "company" %>">
               <a class="nav-link" href="/companies">Companies</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Timesheet</a>
+            <li class="nav-item <%= 'active' if @page_tab == "timesheet" %>">
+              <a class="nav-link" href="/timesheet">Timesheet</a>
             </li>
           </ul>
         </div>

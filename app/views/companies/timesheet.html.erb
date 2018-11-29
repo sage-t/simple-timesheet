@@ -1,5 +1,7 @@
+<% tab "timesheet" %>
 <% employee = Employee.find_by(company_id: cookies[:curr_company].to_i, user_id: current_user.id) %>
-<% is_clocked_in = if employee != nil then employee.is_clocked_in else false end %>
+<% is_clocked_in = employee.is_clocked_in %>
+
 <div class="row">
   <div class="col-4"></div>
   <div class="col-4">
@@ -22,11 +24,22 @@
   <div class="col-4">
     <div class="card">
       <div class="card-body text-center">
-        <h3><%= Time.now.to_formatted_s(:short) %></h3>
-        </br>
-        <h1><%= if employee != nil then employee.pay_time else "--" end %></h1>
-        </br>
-        <a href="/punch" class="btn btn-outline-success btn-lg"><%= if is_clocked_in then 'Clock out' else 'Clock in' end %></a>
+        <% employee.pay_periods.uniq.each do |pay_period| %>
+        <p><b><%= pay_period.start_date %> to <%= pay_period.end_date %></b></p>
+        <p>Total: <%= employee.pay_time(pay_period) %></p>
+        
+        <table class="table">
+          <tbody>
+            <% pay_period.punches.where(employee_id: employee.id).order("created_at DESC").uniq.each do |punch| %>
+              <tr>
+                <td><%= punch.punched_at.localtime.to_s(:short) %></td>
+                <td><%= punch.punch_type %></td>
+                <td></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <% end %>
       </div>
     </div>
   </div>
